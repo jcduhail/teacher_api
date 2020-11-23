@@ -68,9 +68,9 @@ typings/
 .env
 
 # Config files ignores
-config/*
-!config/config.dist.js
-!config/config.dev.js
+#config/*
+#!config/config.dist.js
+#!config/config.dev.js
 
 # tmp files
 tmp/*
