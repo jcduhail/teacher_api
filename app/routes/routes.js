@@ -1,18 +1,24 @@
 const cors = require('cors');
 const authMiddleware = require('./auth/middleware');
 const getRoot = require('./core/get_root');
-const getPricesBySymbol = require('./prices/get_prices_by_symbol');
-const getPrices = require('./prices/get_all_prices');
-const mtCron = require('./mt5/mt_cron');
+const getTeachers = require('./teacher/get_all_teacher');
+const registerStudents = require('./teacher/register_students');
+const getCommonStudents = require('./teacher/get_common_students');
+const suspendStudent = require('./teacher/suspend_student');
+const retrieveForNotifications = require('./teacher/retrieve_for_notifications');
 
 const routes = (app) => {
   app.use(cors());
 
   // CORE
   app.get('/', getRoot); // Show some API info
-  app.get('/:db/:live/prices/:symbol', getPricesBySymbol); // Get prices for a symbol
-  app.get('/:db/:live/prices', getPrices); // Get all prices
-  app.get('/mt5', mtCron);
+
+  // API Routes
+  app.get('/get_teachers', getTeachers); // Get all teachers
+  app.get('/api/commonstudents', getCommonStudents); // Get common students registered to a teacher
+  app.post('/api/register', registerStudents); // Register students to a teacher
+  app.post('/api/suspend', suspendStudent); // Suspend a specific student
+  app.post('/api/retrievefornotifications', retrieveForNotifications); // Retrieve student who can receive a notification
 
   // Check Token & add user data to request
   app.use(authMiddleware); // Retrieve token information

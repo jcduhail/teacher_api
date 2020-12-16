@@ -16,12 +16,8 @@ class MysqlService {
   }
 
   constructor(prefix, db, suffix) {
-	if(prefix == null) prefix = 'shiftfx';
-	if(db == null) db = 'mt5';
-	MysqlService.db = db;
-	if(suffix == null) suffix = 'live01';
+	MysqlService.db = config.mysql.database;
 	const conf = config.mysql;
-	conf.database = (prefix!=''?prefix+'_':'')+db+'_'+suffix;
     this.connected = false;
     this.mysqlConn = mysql.createConnection(conf);
   }

@@ -11,7 +11,7 @@
     "url": ""
   },
   "scripts": {
-    "start": "./node_modules/pm2/bin/pm2 start ./bwapi.js --name=bwapi --watch",
+    "start": "pm2 start bwapi.js --name=bwapi --watch",
     "stop": "pm2 stop bwapi --watch",
     "delete": "pm2 delete bwapi",
     "logs": "pm2 logs bwapi",

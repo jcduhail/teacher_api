@@ -1,7 +1,7 @@
 /* GET root. */
 module.exports = (req, res) => {
   res.json({
-    name: 'Bitwallet Node API',
+    name: 'Teacher Node API',
     version: '1',
     subversion: '0',
   });
