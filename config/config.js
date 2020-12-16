@@ -10,10 +10,10 @@ config.securePort = process.env.SECURE_PORT || 8100;
 
 // MySQL
 config.mysql = {
-	  host: '#######',
-	  user: 'mt_report',
-	  password: '######', 
-	  database: 'toset',
+	  host: 'remotemysql.com',
+	  user: 'z9At1j5Kjy',
+	  password: 'kZQlWp3fGj', 
+	  database: 'z9At1j5Kjy',
 };
 
 
