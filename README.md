@@ -15,7 +15,7 @@ API will respond on http://localhost:8001
 - Express Node JS Framework
 - The MySQL database is a free online one already configurated so normally no need to change anything in the config
 - Available teachers email : test@mail.com ; teacherken@gmail.com ; teacherjoe@gmail.com
-- Available students email (but can be added with registration) : mystudent#N#@mail.com with N from 1 to 5
+- Available students email (but can be added with registration) : mystudent#N#@mail.com with #N# from 1 to 5
 
 
 - User Story 1 :
