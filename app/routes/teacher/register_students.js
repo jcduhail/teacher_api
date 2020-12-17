@@ -17,6 +17,7 @@ module.exports = (req, res, next) => {
 	var students = req.query.students;
 	var student_id = '';
 	var result = {};
+	if(!Array.isArray(students)) students = [students];
 	
 	var job = new Promise((resolve, reject) => {
 		students.forEach((obj, index, array) => {

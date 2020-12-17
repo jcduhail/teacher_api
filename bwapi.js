@@ -4,7 +4,7 @@ const https = require('https');
 const config = require('./config/config');
 const App = require('./app/app');
 
-// Start Klaud9 App
+// Start App
 const app = App(config);
 
 // START THE SERVER

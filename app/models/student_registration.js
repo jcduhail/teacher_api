@@ -22,9 +22,16 @@ class StudentRegistration extends CRUD {
 
   static getQueries() {
     return {
-      find_by_symbol: `SELECT ${MysqlService.formatFields(StudentRegistration)} 
-    	  			   FROM ${StudentRegistration.getDbName()} ${StudentRegistration.name} 
-    	  			   WHERE TRIM(${StudentRegistration.name}.Symbol)=?`,
+      find_common: `SELECT DISTINCT student.email email
+				   FROM student_registration
+				   INNER JOIN student ON student_registration.student_id = student.id
+				   INNER JOIN teacher ON student_registration.teacher_id = teacher.id
+				   WHERE teacher.email IN (?)`,
+      find_for_notification: `SELECT DISTINCT student.email
+				   FROM student_registration
+				   INNER JOIN student ON student_registration.student_id = student.id AND student.suspended = FALSE
+				   INNER JOIN teacher ON student_registration.teacher_id = teacher.id
+				   WHERE teacher.email IN (?) OR student.email IN (?)`,
       find_all: `SELECT ${MysqlService.formatFields(StudentRegistration)} 
       	  	     FROM ${StudentRegistration.getDbName()} ${StudentRegistration.name}
       	  	     ORDER BY ${StudentRegistration.name}.id ASC`,
@@ -69,6 +76,31 @@ class StudentRegistration extends CRUD {
             notFound.status = 404;
             return reject(notFound);
           }
+          return resolve(rows);
+        })
+        .catch(reject);
+    })
+  }
+
+  findCommon(emails) {
+    return new Promise((resolve, reject) => {
+      return this.mysql.query(this.getQuery('find_common'), emails)
+        .then((rows) => {
+          if (rows.length < 1) {
+            const notFound = new Error('No StudentRegistration');
+            notFound.status = 404;
+            return reject(notFound);
+          }
+          return resolve(rows);
+        })
+        .catch(reject);
+    })
+  }
+
+  findForNotification(teachers, students) {
+    return new Promise((resolve, reject) => {
+      return this.mysql.query(this.getQuery('find_for_notification'), [teachers, students])
+        .then((rows) => {
           return resolve(rows);
         })
         .catch(reject);

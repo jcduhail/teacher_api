@@ -1,13 +1,20 @@
 const MysqlService = require('../../services/mysql');
-const Teacher = require('../../models/teacher');
+const StudentRegistration = require('../../models/student_registration');
 
 /* GET users listing. */
 module.exports = (req, res, next) => {
   const mysql = new MysqlService();
-  const teacher = new Teacher(mysql);
+  const student_registration = new StudentRegistration(mysql);
   mysql.connect();
-  teacher.findAll().then((rows) => {
+  var result = {};
+
+  student_registration.findCommon(req.query.teacher).then((rows) => {
     mysql.disconnect();
-    res.json(Teacher.format(rows));
+	result['students'] = Array();
+	rows.forEach(obj=> {
+		result['students'].push(obj.email);
+	});
+    res.json(result);
   }).catch(err => next(err));
+
 };

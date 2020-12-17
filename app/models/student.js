@@ -25,8 +25,9 @@ class Student extends CRUD {
       find_by_email: `SELECT ${MysqlService.formatFields(Student)} 
     	  			   FROM ${Student.getDbName()} ${Student.name} 
     	  			   WHERE TRIM(${Student.name}.email)=?`,
-      insert: `INSERT INTO ${Student.getDbName()} 
-					  VALUES (?)`,
+      suspend: `UPDATE ${Student.getDbName()} ${Student.name}
+			    SET ${Student.name}.suspended = TRUE
+				WHERE ${Student.name}.email = ?`,
     };
   }
 
@@ -49,6 +50,21 @@ class Student extends CRUD {
       return this.mysql.query(this.getQuery('find_by_email'), email)
         .then((rows) => {
           if (rows.length < 1) {
+            const notFound = new Error('No Student for this email');
+            notFound.status = 404;
+            return reject(notFound);
+          }
+          return resolve(rows);
+        })
+        .catch(reject);
+    })
+  }
+
+  suspend(email) {
+    return new Promise((resolve, reject) => {
+      return this.mysql.query(this.getQuery('suspend'), email)
+        .then((rows) => {
+          if (rows.affectedRows < 1) {
             const notFound = new Error('No Student for this email');
             notFound.status = 404;
             return reject(notFound);

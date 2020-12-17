@@ -1,13 +1,16 @@
 const MysqlService = require('../../services/mysql');
-const Teacher = require('../../models/teacher');
+const Student = require('../../models/student');
 
 /* GET users listing. */
 module.exports = (req, res, next) => {
   const mysql = new MysqlService();
-  const teacher = new Teacher(mysql);
+  const student = new Student(mysql);
   mysql.connect();
-  teacher.findAll().then((rows) => {
+  result = {};
+
+  student.suspend(req.query.student).then((rows) => {
     mysql.disconnect();
-    res.json(Teacher.format(rows));
+    result.message = 'ok';
+    res.json(result);
   }).catch(err => next(err));
 };
