@@ -1,7 +1,7 @@
 const MysqlService = require('../../services/mysql');
 const Student = require('../../models/student');
 
-/* GET users listing. */
+/* Suspend a student. */
 module.exports = (req, res, next) => {
   const mysql = new MysqlService();
   const student = new Student(mysql);

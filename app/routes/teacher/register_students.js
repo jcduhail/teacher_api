@@ -3,7 +3,7 @@ const Student = require('../../models/student');
 const Teacher = require('../../models/teacher');
 const StudentRegistration = require('../../models/student_registration');
 
-/* register new students. */
+/* POST register students. */
 module.exports = (req, res, next) => {
   const mysql = new MysqlService();
   const teacher = new Teacher(mysql);
@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
 	
 	var job = new Promise((resolve, reject) => {
 		students.forEach((obj, index, array) => {
+			// If studen exists
 			student.findByEmail(obj).then((rows) => {
 				student_id = student.format(rows[0]).Student.id;
 				student_registration.create({teacher_id:teacher_id, student_id:student_id}).then(row=>{
@@ -31,7 +32,7 @@ module.exports = (req, res, next) => {
 					if (index === array.length -1) resolve();
 				});
 			}).catch(err => {
-				//insert new one
+				// Else create new one
 				
 				student.create({email: obj}).then((row)=>{
 					student_id = student.format(row).Student.id;

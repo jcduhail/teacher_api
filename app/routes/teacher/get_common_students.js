@@ -1,7 +1,7 @@
 const MysqlService = require('../../services/mysql');
 const StudentRegistration = require('../../models/student_registration');
 
-/* GET users listing. */
+/* GET common students listing. */
 module.exports = (req, res, next) => {
   const mysql = new MysqlService();
   const student_registration = new StudentRegistration(mysql);
