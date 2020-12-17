@@ -5,9 +5,10 @@ Node 14+
 
 ## Installation
 npm install
+
 npm start
 
-API will repsond on http://localhost:8001
+API will respond on http://localhost:8001
 
 ## Contents
 
