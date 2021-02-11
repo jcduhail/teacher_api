@@ -21,7 +21,7 @@ config.jwtSecret = '';
 
 // APP
 config.app = {
-  name: 'bwapi',
+  name: 'api',
   contactEmail: '',
 };
 
@@ -31,7 +31,7 @@ config.certificate = '';
 
 // Domains
 config.domains = {
-  api: 'http://devsecure7.bitwallet.com',
+  api: 'http://domain.com',
 };
 
 module.exports = config;
