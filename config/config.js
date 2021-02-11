@@ -23,7 +23,7 @@ config.jwtSecret = 'cnq$(S5MVUnHKgGcV585yA+/3499KWQw@sSgy2F}Hc/H^M3E/JDZM4V7Hz<f
 // APP
 config.app = {
   name: 'bwapi',
-  contactEmail: 'jcduhail@bitwallet.com',
+  contactEmail: 'jcduhail@test.com',
 };
 
 
@@ -31,11 +31,5 @@ config.app = {
 config.domains = {
   api: 'http://localhost',
 };
-
-config.mt5 = {
-  'mt5_rep':'D:/src/api/data',
-  'mt5_api_url':'http://localhost.devsecure7.bitwallet.com/sys47/ja/mt5_api/MT5_ShiftFX_Test_Use.php',
-  'mt5_update_delay':1000
-}
 
 module.exports = config;
